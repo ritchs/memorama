@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
           status: "success",
           timeout: 200,
         });
-        UIkit.modal.confirm("UIkit confirm!").then(function () {
+        UIkit.modal.confirm("Quieres volver a jugar?").then(function () {
           console.log("Confirmed.");
           window.location.reload();
         });
