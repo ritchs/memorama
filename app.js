@@ -100,9 +100,8 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
   //se crea el random de imagenes
   cardArray.sort(() => 0.5 - Math.random());
-  let score = 0;
+  const resultDisplay = document.querySelector("#score");
   const grid = document.querySelector(".grid");
-  let resultDisplay = 0;
   let cardsChosen = [];
   let cardsChosenId = [];
   let cardsWon = [];
@@ -130,13 +129,13 @@ document.addEventListener("DOMContentLoaded", () => {
       UIkit.notification({
         message: "Diste click en la misma imagen",
         status: "warning",
+        timeout: 200,
       });
     } else if (cardsChosen[0] === cardsChosen[1]) {
-      UIkit.notification({ message: "Encontraste el par", status: "primary" });
-      score = score + 1;
       UIkit.notification({
-        message: "record: " + score,
-        status: "success",
+        message: "Encontraste el par",
+        status: "primary",
+        timeout: 200,
       });
       cards[optionOneId].setAttribute("src", "images/404.png");
       cards[optionTwoId].setAttribute("src", "images/404.png");
@@ -149,43 +148,56 @@ document.addEventListener("DOMContentLoaded", () => {
       UIkit.notification({
         message: "Lo Siento Vuelve Intentar",
         status: "danger",
+        timeout: 200,
       });
     }
     cardsChosen = [];
     cardsChosenId = [];
     resultDisplay.textContent = cardsWon.length;
-    score = resultDisplay.toString();
+    if (cardsWon.length === cardArray.length / 2) {
+      resultDisplay.textContent = "G  A  N  A  S  T  E";
+    }
     if (cardsWon.length === cardArray.length / 2) {
       for (let index = 0; index < 10; index++) {
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "top-left",
           status: "success",
+          timeout: 200,
         });
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "top-center",
           status: "success",
+          timeout: 200,
         });
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "top-right",
           status: "success",
+          timeout: 200,
         });
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "bottom-left",
           status: "success",
+          timeout: 200,
         });
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "bottom-center",
           status: "success",
+          timeout: 200,
         });
         UIkit.notification({
           message: "---------- !G A N A S T E¡ ---------",
           pos: "bottom-right",
           status: "success",
+          timeout: 200,
+        });
+        UIkit.modal.confirm("UIkit confirm!").then(function () {
+          console.log("Confirmed.");
+          window.location.reload();
         });
       }
     }
