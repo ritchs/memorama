@@ -114,10 +114,30 @@ document.addEventListener("DOMContentLoaded", () => {
       card.setAttribute("data-id", i);
       card.addEventListener("click", flipCard);
       grid.appendChild(card);
+      drawScore();
     }
   }
 
-  //se consulta si son la misma imagen o no
+  function drawScore() {
+    var n = 0;
+    let m = 0;
+    var l = document.getElementById("tiempo");
+    window.setInterval(function () {
+      if (n == 60) {
+        n = 0;
+        m++;
+      }
+      l.innerHTML = `${m}:${n}`;
+      n++;
+    }, 1000);
+    const ToTime = (num) => {
+      const numero = num / 60 /60
+  
+      return Number.parseFloat(numero).toFixed(2);
+  }
+
+  }
+  //se consulta si son la misma imagen o no 
   function checkForMatch() {
     const cards = document.querySelectorAll("img");
     const optionOneId = cardsChosenId[0];
@@ -131,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "info",
         title: "Diste click en la misma imagen",
         showConfirmButton: false,
-        timer: 1500
+        timer: 800
       });
     } else if (cardsChosen[0] === cardsChosen[1]) {
       Swal.fire({
@@ -139,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "success",
         title: "Encontraste el par",
         showConfirmButton: false,
-        timer: 1500
+        timer: 800
       });
   
       cards[optionOneId].setAttribute("src", "images/404.png");
@@ -155,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "warning",
         title: "Lo Siento Vuelve Intentar",
         showConfirmButton: false,
-        timer: 1500
+        timer: 800
       });
     }
     cardsChosen = [];
@@ -166,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (cardsWon.length === cardArray.length / 2) {
       for (let index = 0; index < 10; index++) {
-        Swal.fire({
+ /*        Swal.fire({
           title: resultDisplay.resultDisplay,
           width: 600,
           padding: "3em",
@@ -174,20 +194,31 @@ document.addEventListener("DOMContentLoaded", () => {
           background: "#fff url(/images/trees.png)",
           backdrop: `
             rgba(0,0,123,0.4)
-            url("/images/nyan-cat.gif")
-            left top
+            url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
+            center
             no-repeat
           `
-        });
+        }); */
         Swal.fire({
-          title: "Quieres volver a jugar?",
+          title:"G  A  N  A  S  T  E" ,
+          text: "Quieres volver a jugar?",
+          width: 600,
+          padding: "3em",
+          color: "#716add",
+          background: "#fff url(/images/trees.png)",
+          backdrop: `
+            rgba(0,0,123,0.4)
+            url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
+            center
+            no-repeat
+          `,
           showDenyButton: true,
           confirmButtonText: "SI",
           denyButtonText: `NO`
         }).then((result) => {
           /* Read more about isConfirmed, isDenied below */
           if (result.isConfirmed) {
-            Swal.fire("Saved!", "", "success");
+            Swal.fire("Reiniciando!", "", "success");
             window.location.reload();
           } else if (result.isDenied) {
             Swal.fire("Changes are not saved", "", "info");
