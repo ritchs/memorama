@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   //card options
+  let tiempo;
+  let pausa=true;
   const cardArray = [
     {
       name: "binario",
@@ -108,19 +110,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //se muestra la imagenes volteadas
   function createBoard() {
-    console.log("width: ",screen.height)
-    console.log("width: ",screen.width)
     for (let i = 0; i < cardArray.length; i++) {
-      let size = Math.ceil((screen.height * screen.width)/cardArray.length);
+      let size = Math.ceil(screen.height/cardArray.length)/2;
       console.log(size);
       const card = document.createElement("img");
-      card.style.width = `${size}px`;
-      card.style.height = `${size}px`;
+      card.style.width = `${size*10}px`;
+      card.style.height = `${size*10}px`;
+      card.setAttribute("class", "img-fluid img-thumbnail");
+      card.setAttribute("alt", "Responsive image");
       card.setAttribute("src", "images/cubo3d.png");
       card.setAttribute("data-id", i);
       card.addEventListener("click", flipCard);
       grid.appendChild(card);
-      drawScore();
+      if (pausa) {
+        drawScore();
+      }
+     
     }
   }
 
@@ -137,7 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (n<=9) {
         n = `0${n}`;
       }
-      l.innerHTML = `${m}:${n}`;
+      l.innerHTML = `Time ${m}:${n}`;
+      tiempo = `${m}:${n}`;
       n++;
     }, 1000);
   }
@@ -155,7 +161,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "info",
         title: "Diste click en la misma imagen",
         showConfirmButton: false,
-        timer: 800
+        timer: 1000
       });
     } else if (cardsChosen[0] === cardsChosen[1]) {
       Swal.fire({
@@ -163,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "success",
         title: "Encontraste el par",
         showConfirmButton: false,
-        timer: 800
+        timer: 1000
       });
   
       cards[optionOneId].setAttribute("src", "images/404.png");
@@ -179,55 +185,51 @@ document.addEventListener("DOMContentLoaded", () => {
         icon: "warning",
         title: "Lo Siento Vuelve Intentar",
         showConfirmButton: false,
-        timer: 800
+        timer: 1000
       });
     }
     cardsChosen = [];
     cardsChosenId = [];
-    resultDisplay.textContent = cardsWon.length;
+    resultDisplay.textContent =`Score: ${cardsWon.length}`;
     if (cardsWon.length === cardArray.length / 2) {
       resultDisplay.resultDisplay = "G  A  N  A  S  T  E";
     }
     if (cardsWon.length === cardArray.length / 2) {
       for (let index = 0; index < 10; index++) {
- /*        Swal.fire({
-          title: resultDisplay.resultDisplay,
-          width: 600,
-          padding: "3em",
-          color: "#716add",
-          background: "#fff url(/images/trees.png)",
-          backdrop: `
-            rgba(0,0,123,0.4)
-            url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
-            center
-            no-repeat
-          `
-        }); */
         Swal.fire({
-          title:"G  A  N  A  S  T  E" ,
-          text: "Quieres volver a jugar?",
-          width: 600,
-          padding: "3em",
-          color: "#716add",
-          background: "#fff url(/images/trees.png)",
-          backdrop: `
-            rgba(0,0,123,0.4)
-            url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
-            center
-            no-repeat
-          `,
-          showDenyButton: true,
-          confirmButtonText: "SI",
-          denyButtonText: `NO`
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            Swal.fire("Reiniciando!", "", "success");
-            window.location.reload();
-          } else if (result.isDenied) {
-            Swal.fire("Changes are not saved", "", "info");
-          }
+          position: "center",
+          icon: "success",
+          title: "G  A  N  A  S  T  E",
+          html: `<b>Terminaste con un tiempo de </b>${tiempo}`,
+          showConfirmButton: false,
+          timer: 1500
         });
+        setTimeout(() => {
+          Swal.fire({
+            title: "Quieres volver a jugar?" ,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
+              center
+              no-repeat
+            `,
+            showDenyButton: true,
+            confirmButtonText: "SI",
+            denyButtonText: `NO`
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Swal.fire("Reiniciando!", "", "success");
+              window.location.reload();
+            } else if (result.isDenied) {
+              Swal.fire("Changes are not saved", "", "info");
+            }
+          });
+        }, "2000");
+  
       }
     }
   }
@@ -242,6 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(checkForMatch, 500);
     }
   }
+
+
 
   createBoard();
 });

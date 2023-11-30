@@ -1,27 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./css/bootstrap.css" />
-    <link rel="stylesheet" href="./css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./css/bootstrap-grid.css" />
-    <link rel="stylesheet" href="./css/bootstrap-reboot.css" />
-    <script src="./js/bootstrap.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/bootstrap.bundle.js"></script>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
-    </style>
-  </head>
-  <body>
-    <div class="jumbotron">
-      <h1 class="display-4">Hello, world!</h1>
-      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-      <hr class="my-4">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="./game.html" role="button">S T A R T</a>
-      </p>
+
+<head>
+  <meta charset="UTF-8" />
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/bootstrap.css" />
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/bootstrap-grid.css" />
+  <link rel="stylesheet" href="./css/bootstrap-reboot.css" />
+  <script src="./js/bootstrap.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/bootstrap.bundle.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+  </style>
+</head>
+
+<body class="jumbotron">
+
+  
+  <div class="container-fluid h-100">
+    <div class="row w-100 align-items-center">
+      <div class="col text-center">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a class="btn btn-dark btn-lg" href="./game.html" role="button">S T A R T</a>
+            </div>
+          </div>
+        </div>
+      
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
+<script>
+  $('.carousel').carousel();
+</script>
