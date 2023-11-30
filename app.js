@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   //card options
+  let tiempo;
+  let pausa=true;
   const cardArray = [
     {
       name: "binario",
@@ -109,15 +111,43 @@ document.addEventListener("DOMContentLoaded", () => {
   //se muestra la imagenes volteadas
   function createBoard() {
     for (let i = 0; i < cardArray.length; i++) {
+      let size = Math.ceil(screen.height/cardArray.length)/2;
+      console.log(size);
       const card = document.createElement("img");
+      card.style.width = `${size*10}px`;
+      card.style.height = `${size*10}px`;
+      card.setAttribute("class", "img-fluid img-thumbnail");
+      card.setAttribute("alt", "Responsive image");
       card.setAttribute("src", "images/cubo3d.png");
       card.setAttribute("data-id", i);
       card.addEventListener("click", flipCard);
       grid.appendChild(card);
+      if (pausa) {
+        drawScore();
+      }
+     
     }
   }
 
-  //se consulta si son la misma imagen o no
+  function drawScore() {
+    
+    var n = 0;
+    let m = 0;
+    var l = document.getElementById("tiempo");
+    window.setInterval(function () {
+      if (n == 60) {
+        n = 0;
+        m++;
+      }
+      if (n<=9) {
+        n = `0${n}`;
+      }
+      l.innerHTML = `Time ${m}:${n}`;
+      tiempo = `${m}:${n}`;
+      n++;
+    }, 1000);
+  }
+  //se consulta si son la misma imagen o no 
   function checkForMatch() {
     const cards = document.querySelectorAll("img");
     const optionOneId = cardsChosenId[0];
@@ -126,17 +156,22 @@ document.addEventListener("DOMContentLoaded", () => {
     if (optionOneId == optionTwoId) {
       cards[optionOneId].setAttribute("src", "images/cubo3d.png");
       cards[optionTwoId].setAttribute("src", "images/cubo3d.png");
-      UIkit.notification({
-        message: "Diste click en la misma imagen",
-        status: "warning",
-        timeout: 200,
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "Diste click en la misma imagen",
+        showConfirmButton: false,
+        timer: 1000
       });
     } else if (cardsChosen[0] === cardsChosen[1]) {
-      UIkit.notification({
-        message: "Encontraste el par",
-        status: "primary",
-        timeout: 200,
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Encontraste el par",
+        showConfirmButton: false,
+        timer: 1000
       });
+  
       cards[optionOneId].setAttribute("src", "images/404.png");
       cards[optionTwoId].setAttribute("src", "images/404.png");
       cards[optionOneId].removeEventListener("click", flipCard);
@@ -145,60 +180,56 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       cards[optionOneId].setAttribute("src", "images/cubo3d.png");
       cards[optionTwoId].setAttribute("src", "images/cubo3d.png");
-      UIkit.notification({
-        message: "Lo Siento Vuelve Intentar",
-        status: "danger",
-        timeout: 200,
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Lo Siento Vuelve Intentar",
+        showConfirmButton: false,
+        timer: 1000
       });
     }
     cardsChosen = [];
     cardsChosenId = [];
-    resultDisplay.textContent = cardsWon.length;
+    resultDisplay.textContent =`Score: ${cardsWon.length}`;
     if (cardsWon.length === cardArray.length / 2) {
-      resultDisplay.textContent = "G  A  N  A  S  T  E";
+      resultDisplay.resultDisplay = "G  A  N  A  S  T  E";
     }
     if (cardsWon.length === cardArray.length / 2) {
       for (let index = 0; index < 10; index++) {
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "top-left",
-          status: "success",
-          timeout: 200,
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "G  A  N  A  S  T  E",
+          html: `<b>Terminaste con un tiempo de </b>${tiempo}`,
+          showConfirmButton: false,
+          timer: 1500
         });
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "top-center",
-          status: "success",
-          timeout: 200,
-        });
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "top-right",
-          status: "success",
-          timeout: 200,
-        });
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "bottom-left",
-          status: "success",
-          timeout: 200,
-        });
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "bottom-center",
-          status: "success",
-          timeout: 200,
-        });
-        UIkit.notification({
-          message: "---------- !G A N A S T E¡ ---------",
-          pos: "bottom-right",
-          status: "success",
-          timeout: 200,
-        });
-        UIkit.modal.confirm("Quieres volver a jugar?").then(function () {
-          console.log("Confirmed.");
-          window.location.reload();
-        });
+        setTimeout(() => {
+          Swal.fire({
+            title: "Quieres volver a jugar?" ,
+            padding: "3em",
+            color: "#716add",
+            background: "#fff url(/images/trees.png)",
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("https://media.giphy.com/media/p0AoJQSxqcS0r6LIaD/giphy.gif")
+              center
+              no-repeat
+            `,
+            showDenyButton: true,
+            confirmButtonText: "SI",
+            denyButtonText: `NO`
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              Swal.fire("Reiniciando!", "", "success");
+              window.location.reload();
+            } else if (result.isDenied) {
+              Swal.fire("Changes are not saved", "", "info");
+            }
+          });
+        }, "2000");
+  
       }
     }
   }
@@ -213,6 +244,8 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(checkForMatch, 500);
     }
   }
+
+
 
   createBoard();
 });

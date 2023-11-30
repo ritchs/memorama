@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head> <!-- UIkit CSS -->
-  <link
-    rel="stylesheet"
-    href="./css/uikit-rtl.min.css"
-  />
 
-  <!-- UIkit JS -->
-  <script src="./js/uikit.min.js"></script>
-  <script src="./js/uikit-icons.min.js"></script>
+<head>
   <meta charset="UTF-8">
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./css/bootstrap.css" />
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/bootstrap-grid.css" />
+  <link rel="stylesheet" href="./css/bootstrap-reboot.css" />
+  <script src="./js/bootstrap.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/bootstrap.bundle.js"></script>
   <title>MEMORAMA</title>
-  <link rel="stylesheet" href="style.css"></link>
+  <link rel="stylesheet" href="style.css">
+  </link>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="app.js" charset="utf-8"></script>
+  <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
-    </style>
+  </style>
 </head>
-<body class="letras">
+
+<body>
   <header>
-    <div>
-      <nav class="uk-navbar-container uk-margin" uk-navbar>
-        <div class="uk-navbar-center"> 
-            <a class="letras" class="uk-navbar-item uk-logo" >Score:<a class="letras" id="score"></a></a>
-        </div>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+     <strong><p id="tiempo" class="navbar-brand"></p></strong> 
+      <p id="score" class="navbar-text text-right"></p>
     </nav>
-    </div>
   </header>
-  <div class="uk-margin uk-text-center">
-    <div class="uk-position-small uk-position-center">
-          <div
-            class="uk-grid-collapse uk-child-width-expand@s uk-text-center uk-margin-large-top"
-            uk-grid
-          >
-            <div>
-              <div class="grid">
-            </div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="row justify-content-lg-center">
+      <div class=" grid"></div>
     </div>
   </div>
+  </div>
 </body>
+
 </html>
+<!-- <script>
+  $(document).ready(function () {
+
+    document.addEventListener('keydown', (event) => {
+      if (event.keyCode == 80) {
+        pausa = false;
+      } else {
+        pausa = true;
+      }
+    }, false);
+  });
+</script> -->
