@@ -108,8 +108,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //se muestra la imagenes volteadas
   function createBoard() {
+    console.log("width: ",screen.height)
+    console.log("width: ",screen.width)
     for (let i = 0; i < cardArray.length; i++) {
+      let size = Math.ceil((screen.height * screen.width)/cardArray.length);
+      console.log(size);
       const card = document.createElement("img");
+      card.style.width = `${size}px`;
+      card.style.height = `${size}px`;
       card.setAttribute("src", "images/cubo3d.png");
       card.setAttribute("data-id", i);
       card.addEventListener("click", flipCard);
@@ -119,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function drawScore() {
+    
     var n = 0;
     let m = 0;
     var l = document.getElementById("tiempo");
@@ -127,15 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
         n = 0;
         m++;
       }
+      if (n<=9) {
+        n = `0${n}`;
+      }
       l.innerHTML = `${m}:${n}`;
       n++;
     }, 1000);
-    const ToTime = (num) => {
-      const numero = num / 60 /60
-  
-      return Number.parseFloat(numero).toFixed(2);
-  }
-
   }
   //se consulta si son la misma imagen o no 
   function checkForMatch() {
